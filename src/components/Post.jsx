@@ -22,7 +22,8 @@ export function Post({ author, publishedAt, content}) {
 
     function handleCreationNewComment() {
         event.preventDefault()
-        setComments([...comments, comments.length + 1])
+        const newCommentText = event.target.comment.value
+        setComments([...comments, newCommentText])
     }
 
     return (
@@ -51,7 +52,10 @@ export function Post({ author, publishedAt, content}) {
 
         <form onSubmit={handleCreationNewComment} className={styles.commentForm}>
             <strong>Deixe seu comentário</strong>
-            <textarea placeholder='Deixe seu Feedback'></textarea>
+            <textarea
+             name='comment'
+             placeholder='Deixe seu Feedback'>
+             </textarea>
             <footer>
              <button type='submit'>Comentar</button>
             </footer>
@@ -59,7 +63,7 @@ export function Post({ author, publishedAt, content}) {
 
             <div className={styles.commentList}>
                 {comments.map(comment =>{
-                    return <Comment />
+                    return <Comment content={comment}/>
                 })}
             </div>
         </article> 
