@@ -7,9 +7,10 @@ import { useState } from 'react';
 
 export function Post({ author, publishedAt, content}) {
     const [comments, setComments] = useState([
-        1,
-        2,
+        "Que belo Post"
     ])
+
+    const [newCommentText, setNewCommentText] = useState('')
 
     const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
         locale: ptBR
@@ -22,9 +23,20 @@ export function Post({ author, publishedAt, content}) {
 
     function handleCreationNewComment() {
         event.preventDefault()
-        const newCommentText = event.target.comment.value
+
+
         setComments([...comments, newCommentText])
+        setNewCommentText('');
     }
+
+    function handleNewCommnentChange() {
+        setNewCommentText(event.target.value)
+    }
+
+    function deleteComment(comment){
+        console.log(`Deletar comentário ${comment}`)
+    }
+    
 
     return (
         <article className={styles.Post}>
@@ -43,19 +55,23 @@ export function Post({ author, publishedAt, content}) {
         <div className={styles.content}>
         {content.map(line => {
             if (line.type === 'paragraph') {
-                return <p>{line.content}</p>
+                return <p key={line.content}>{line.content}</p>
             } else if (line.type === 'link') {
-                return <p><a href="#">{line.content}</a></p>
+                return <p key={line.content}><a href="#">{line.content}</a></p>
             }
         })}
         </div>
 
         <form onSubmit={handleCreationNewComment} className={styles.commentForm}>
             <strong>Deixe seu comentário</strong>
+
             <textarea
              name='comment'
-             placeholder='Deixe seu Feedback'>
-             </textarea>
+             placeholder='Deixe seu Feedback'
+             value={newCommentText}
+             onChange={handleNewCommnentChange}
+             />
+
             <footer>
              <button type='submit'>Comentar</button>
             </footer>
@@ -63,7 +79,13 @@ export function Post({ author, publishedAt, content}) {
 
             <div className={styles.commentList}>
                 {comments.map(comment =>{
-                    return <Comment content={comment}/>
+                    return (
+                        <Comment 
+                        key={comment}
+                        content={comment}
+                        onDeleteComment={deleteComment}
+                    />
+                )
                 })}
             </div>
         </article> 
