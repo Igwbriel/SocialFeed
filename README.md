@@ -1,4 +1,4 @@
-# dt-dinheiros
+# SocialFeed
 ![IgniteFeed](https://github.com/Igwbriel/SocialFeed/assets/101999960/a6bd99e7-7e7e-47dd-ad48-1560faa6d1c2)
 
 Esse é o primeiro projeto da trilha Ignite (2022) da Rockeatseat. Se trata de uma aplicação React que reproduz de forma bem básica como seria um feed de redes socias. Dentre as funcionalidades estão: adicionar novos posts, comentar, curtir e excluir comentários. 
